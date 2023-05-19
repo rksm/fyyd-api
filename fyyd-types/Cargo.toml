@@ -1,10 +1,10 @@
 [package]
 name = "fyyd-types"
 version = "0.1.0"
-licence = "MIT"
 description = "Types for the fyyd-api crate."
 authors.workspace = true
 edition.workspace = true
+license.workspace = true
 readme.workspace = true
 documentation.workspace = true
 repository.workspace = true
