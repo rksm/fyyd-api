@@ -15,7 +15,7 @@ The library currently fits my needs, but is still limited, notably:
 
 - Not all endpoints are supported
 - It is fully async and doesn't support blocking calls
-- It needs uses reqwest as an http backend
+- It uses reqwest as an http backend
 
 If you have different needs, or find improvements, 
 I am always happy about contributions.
