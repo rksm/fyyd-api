@@ -2,7 +2,7 @@
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-authors = ["Alexander Kenji Berthold"]
+authors = ["Alexander Kenji Berthold <aks.kenji@protonmail.com>" ]
 
 readme = "README.md"
 repository = "https://gitlab.com/akenji/fyyd-api"

@@ -1,9 +1,13 @@
 [package]
-authors = ["Alexander Kenji Berthold <aks.kenji@protonmail.com>" ]
 name = "fyyd-api"
 version = "0.1.0"
-edition = "2021"
 licence = "MIT"
+authors.workspace = true
+edition.workspace = true
+readme.workspace = true
+documentation.workspace = true
+repository.workspace = true
+homepage.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
