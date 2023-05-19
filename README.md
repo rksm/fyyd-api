@@ -21,6 +21,9 @@ If you have different needs, or find improvements,
 I am always happy about contributions.
 Please see the contributing section for that.
 
+# Changes
+[Changelog](./CHANGELOG.md)
+
 
 # Contributing
 [How to contribute.](./docs/CONTRIBUTING.md)
