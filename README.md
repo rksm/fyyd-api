@@ -1,8 +1,8 @@
 # fyyd-api
-<p align="center">
-  <a href="https://builtwithnix.org"><img alt="Built with nix" src="https://img.shields.io/static/v1?label=built%20with&message=nix&color=5277C3&logo=nixos&style=flat-square&logoColor=ffffff"></a>
-  <a href="https://crates.io/crates/fyyd-api"><img alt="fyyd-api version information" src="https://img.shields.io/crates/v/fyyd-api?style=flat-square"</a>
-</p>
+
+[![Built with Nix](https://img.shields.io/static/v1?label=built%20with&message=nix&color=5277C3&logo=nixos&style=flat-square&logoColor=ffffff)](https://builtwithnix.org)
+[![Crates](https://img.shields.io/crates/v/fyyd-api?style=flat-square)](https://crates.io/crates/fyyd-api)
+[![Documentation](https://docs.rs/fyyd-api/badge.svg)](https://docs.rs/fyyd-api)
 
 Rust bindings to the fyyd api.
 Currently the api version 2 is supported.
