@@ -2,6 +2,7 @@
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
 authors = ["Alexander Kenji Berthold <aks.kenji@protonmail.com>" ]
 
 readme = "README.md"
