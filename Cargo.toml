@@ -1,0 +1,28 @@
+# # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Alexander Kenji Berthold"]
+
+readme = "README.md"
+repository = "https://gitlab.com/akenji/fyyd-api"
+documentation = "https://gitlab.com/akenji/fyyd-api"
+homepage = "https://gitlab.com/akenji/fyyd-api"
+
+[workspace]
+members = [
+	"fyyd-api",
+	"fyyd-types",
+]
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+opt-level = 3
+strip = true
+[profile.dev]
+incremental = true
+lto = "thin"
+# Set this to 1 or 2 to get more useful backtraces in debugger.
+debug = false
+strip = true

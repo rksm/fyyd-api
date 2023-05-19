@@ -1,0 +1,15 @@
+# nix support
+/.direnv
+result
+result-*
+
+# rust support
+target/
+/target/
+.Cargo.lock
+
+
+# profiling
+flamegraph.svg
+perf.data
+perf.data.*
