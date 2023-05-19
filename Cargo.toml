@@ -14,15 +14,3 @@ members = [
 	"fyyd-api",
 	"fyyd-types",
 ]
-
-[profile.release]
-lto = "fat"
-codegen-units = 1
-opt-level = 3
-strip = true
-[profile.dev]
-incremental = true
-lto = "thin"
-# Set this to 1 or 2 to get more useful backtraces in debugger.
-debug = false
-strip = true
