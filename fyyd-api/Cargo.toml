@@ -1,9 +1,9 @@
 [package]
 name = "fyyd-api"
-version = "0.1.0"
-licence = "MIT"
+version = "0.1.1"
 authors.workspace = true
 edition.workspace = true
+license.workspace = true
 readme.workspace = true
 documentation.workspace = true
 repository.workspace = true
