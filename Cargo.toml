@@ -6,9 +6,9 @@ license = "MIT"
 authors = ["Alexander Kenji Berthold <aks.kenji@protonmail.com>" ]
 
 readme = "README.md"
-repository = "https://gitlab.com/akenji/fyyd-api"
-documentation = "https://gitlab.com/akenji/fyyd-api"
-homepage = "https://gitlab.com/akenji/fyyd-api"
+repository = "https://gitlab.com/a-kenji/fyyd-api"
+documentation = "https://gitlab.com/a-kenji/fyyd-api"
+homepage = "https://gitlab.com/a-kenji/fyyd-api"
 
 keywords = [
 	"podcasting",
