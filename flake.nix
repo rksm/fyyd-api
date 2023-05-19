@@ -64,6 +64,7 @@
         pkgs.openssl # for `cargo xtask`
 
         pkgs.reuse
+        pkgs.lychee
 
         (pkgs.symlinkJoin {
           name = "cargo-udeps-wrapped";

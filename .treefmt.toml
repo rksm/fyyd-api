@@ -1,7 +1,7 @@
 [formatter.nix]
 command = "sh"
 options = [
-  "-eucx",
+    "-eucx",
     """
 # First deadnix
 deadnix --edit "$@"

@@ -11,17 +11,17 @@ documentation = "https://gitlab.com/a-kenji/fyyd-api"
 homepage = "https://gitlab.com/a-kenji/fyyd-api"
 
 keywords = [
-	"podcasting",
-	"api",
-	"podcast",
-	"search",
-	"fyyd",
+    "podcasting",
+    "api",
+    "podcast",
+    "search",
+    "fyyd",
 ]
 
 categories = ["api-bindings", "multimedia::audio", "multimedia"]
 
 [workspace]
 members = [
-	"fyyd-api",
-	"fyyd-types",
+    "fyyd-api",
+    "fyyd-types",
 ]
