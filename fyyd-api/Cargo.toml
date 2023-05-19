@@ -1,6 +1,7 @@
 [package]
 name = "fyyd-api"
 version = "0.1.1"
+description = "Bindings to the fyyd api."
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -8,6 +9,8 @@ readme.workspace = true
 documentation.workspace = true
 repository.workspace = true
 homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
