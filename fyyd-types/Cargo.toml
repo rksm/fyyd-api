@@ -1,6 +1,6 @@
 [package]
 name = "fyyd-types"
-version = "0.1.1"
+version = "0.1.2"
 description = "Types for the fyyd-api crate."
 authors.workspace = true
 edition.workspace = true
