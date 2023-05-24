@@ -25,3 +25,8 @@ members = [
     "fyyd-api",
     "fyyd-types",
 ]
+
+[package.metadata.docs.rs]
+all-features = true
+# see https://doc.rust-lang.org/nightly/rustdoc/scraped-examples.html
+cargo-args = ["-Zunstable-options", "-Zrustdoc-scrape-examples"]
