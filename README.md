@@ -7,9 +7,18 @@
 Rust bindings to the fyyd api.
 Currently the api version 2 is supported.
 
+## Usage
+```
+fyyd-api = "0"
+```
 
+or use `cargo add`:
 
-# Limitations
+```
+cargo add fyyd-api
+```
+
+## Limitations
 
 The library currently fits my needs, but is still limited, notably:
 
@@ -21,16 +30,16 @@ If you have different needs, or find improvements,
 I am always happy about contributions.
 Please see the contributing section for that.
 
-# Changes
+## Changes
 [Changelog](./CHANGELOG.md)
 
 
-# Contributing
+## Contributing
 [How to contribute.](./docs/CONTRIBUTING.md)
 
-# Reference
+## Reference
 - [Fyyd](https://fyyd.de/)
 - [Fyyd Api Documentation](https://github.com/eazyliving/fyyd-api)
 
-# License
+## License
 MIT
