@@ -1,6 +1,6 @@
 [package]
 name = "fyyd-api"
-version = "0.1.2"
+version = "0.1.3"
 description = "Bindings to the fyyd api."
 authors.workspace = true
 edition.workspace = true
