@@ -39,7 +39,7 @@ pub struct FyydPaging {
     pub count: u16,
     pub page: u16,
     pub first_page: u16,
-    pub last_page: u16,
+    pub last_page: i32,
     pub next_page: Option<u16>,
     pub prev_page: Option<u16>,
 }

@@ -15,7 +15,7 @@ categories.workspace = true
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-fyyd-types = { version = "0.1.1" }
+fyyd-types = { path = "../fyyd-types" }
 reqwest = { version = "0.11.14", features = ["json", "blocking"] }
 serde = { version = "1.0.162", features = ["derive"] }
 serde_json = "1.0"
