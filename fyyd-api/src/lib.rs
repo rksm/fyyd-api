@@ -1,5 +1,4 @@
-extern crate fyyd_types;
-extern crate reqwest;
+pub use fyyd_types as types;
 
 pub mod v2;
 
