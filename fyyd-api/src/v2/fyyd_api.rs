@@ -1,6 +1,8 @@
 use fyyd_types::v2::fyyd_response::{FyydPodcast, FyydResponse};
 use reqwest::{Client, ClientBuilder};
 
+use crate::{Error, Result};
+
 const FYYD_API_V2: &str = "https://api.fyyd.de/0.2";
 const PODCAST: &str = "/podcast";
 const EPISODES: &str = "/episodes";
@@ -91,7 +93,7 @@ impl FyydPodcastSearch {
 
     /// Search for a podcast feed inside fyyd's database,
     /// matches any - or some set of a given critetia.
-    pub async fn run(self) -> Result<FyydResponse<Vec<FyydPodcast>>, Box<dyn std::error::Error>> {
+    pub async fn run(self) -> Result<FyydResponse<Vec<FyydPodcast>>> {
         let Self {
             title,
             url,
@@ -101,7 +103,10 @@ impl FyydPodcastSearch {
             client_builder,
         } = self;
 
-        let client = client_builder.unwrap_or_else(ClientBuilder::new).build()?;
+        let client = client_builder
+            .unwrap_or_else(ClientBuilder::new)
+            .build()
+            .map_err(Error::ClientCreation)?;
 
         let path = FYYD_API_V2.to_owned() + SEARCH_PODCAST;
         let request = client
@@ -112,9 +117,10 @@ impl FyydPodcastSearch {
             .query(&[("term", term.unwrap_or_default())])
             .query(&[("page", page.as_ref().cloned().unwrap_or_default())]);
 
-        let response = request.send().await?;
-        let body = response.bytes().await?.to_vec();
-        let fyyd_response: FyydResponse<Vec<FyydPodcast>> = serde_json::from_slice(&body)?;
+        let response = request.send().await.map_err(Error::Request)?;
+        let body = response.bytes().await.map_err(Error::Request)?.to_vec();
+        let fyyd_response: FyydResponse<Vec<FyydPodcast>> =
+            serde_json::from_slice(&body).map_err(Error::Deserialization)?;
 
         Ok(fyyd_response)
     }
@@ -167,7 +173,7 @@ impl FyydClient {
         count: Option<u16>,
         page: Option<u16>,
         _episodes: bool,
-    ) -> Result<FyydResponse<FyydPodcast>, Box<dyn std::error::Error>> {
+    ) -> Result<FyydResponse<FyydPodcast>> {
         let path = FYYD_API_V2.to_owned() + PODCAST + EPISODES;
 
         let request = self
@@ -178,9 +184,10 @@ impl FyydClient {
             .query(&[("page", page.unwrap_or_default())])
             .query(&[("count", count.unwrap_or(50))]);
 
-        let response = request.send().await?;
-        let body = response.bytes().await?.to_vec();
-        let fyyd_response: FyydResponse<FyydPodcast> = serde_json::from_slice(&body)?;
+        let response = request.send().await.map_err(Error::Request)?;
+        let body = response.bytes().await.map_err(Error::Request)?.to_vec();
+        let fyyd_response: FyydResponse<FyydPodcast> =
+            serde_json::from_slice(&body).map_err(Error::Deserialization)?;
 
         Ok(fyyd_response)
     }
@@ -195,7 +202,7 @@ impl FyydClient {
         &self,
         since_id: Option<u64>,
         count: Option<u16>,
-    ) -> Result<FyydResponse<FyydPodcast>, Box<dyn std::error::Error>> {
+    ) -> Result<FyydResponse<FyydPodcast>> {
         let path = FYYD_API_V2.to_owned() + _PODCAST_LATEST;
 
         let request = self
@@ -204,9 +211,10 @@ impl FyydClient {
             .query(&[("since_id", since_id)])
             .query(&[("count", count.unwrap_or(20))]);
 
-        let response = request.send().await?;
-        let body = response.bytes().await?.to_vec();
-        let fyyd_response: FyydResponse<FyydPodcast> = serde_json::from_slice(&body)?;
+        let response = request.send().await.map_err(Error::Request)?;
+        let body = response.bytes().await.map_err(Error::Request)?.to_vec();
+        let fyyd_response: FyydResponse<FyydPodcast> =
+            serde_json::from_slice(&body).map_err(Error::Deserialization)?;
 
         Ok(fyyd_response)
     }
