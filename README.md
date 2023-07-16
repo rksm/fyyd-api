@@ -1,3 +1,7 @@
+# fork
+
+This is a fork of https://gitlab.com/a-kenji/fyyd-api
+
 # fyyd-api
 
 [![Built with Nix](https://img.shields.io/static/v1?label=built%20with&message=nix&color=5277C3&logo=nixos&style=flat-square&logoColor=ffffff)](https://builtwithnix.org)
