@@ -1,5 +1,3 @@
-use std::sync::OnceLock;
-
 use fyyd_types::v2::fyyd_response::{FyydPodcast, FyydResponse};
 use reqwest::{Client, ClientBuilder};
 
@@ -25,13 +23,101 @@ const SEARCH_PODCAST: &str = "/search/podcast";
 //const FEATURE_HOT: &str = "/feature/podcast/hot";
 //const FEATURE_HOT_LANGUAGES: &str = "/feature/podcast/hot/languages";
 
-static HTTP_CLIENT: OnceLock<Client> = OnceLock::new();
+/// Search for podcasts inside fyyd's database.
+///
+/// # Example
+///
+/// ```rust
+/// use fyyd_api::v2::fyyd_api::FyydPodcastSearch;
+/// use reqwest::ClientBuilder;
+///
+/// # async fn doctest() {
+/// let client_builder = ClientBuilder::new().timeout(std::time::Duration::from_secs(10));
+/// let result = FyydPodcastSearch::default()
+///     .client_builder(client_builder)
+///     .term("rust")
+///     .run()
+///     .await
+///     .expect("Failed to search");
+/// # }
+/// ```
 
-fn get_http_client(client_builder: Option<ClientBuilder>) -> &'static Client {
-    HTTP_CLIENT.get_or_init(|| {
-        let builder = client_builder.unwrap_or_else(ClientBuilder::new);
-        builder.build().unwrap()
-    })
+#[derive(Default)]
+pub struct FyydPodcastSearch {
+    term: Option<String>,
+    title: Option<String>,
+    language: Option<String>,
+    url: Option<String>,
+    page: Option<u16>,
+    client_builder: Option<ClientBuilder>,
+}
+
+impl FyydPodcastSearch {
+    /// `term` - a search term inside the podcast
+    pub fn term(mut self, term: impl ToString) -> Self {
+        self.term = Some(term.to_string());
+        self
+    }
+
+    /// `title` - the podcast's title
+    pub fn title(mut self, title: impl ToString) -> Self {
+        self.title = Some(title.to_string());
+        self
+    }
+
+    /// The language of the podcast
+    pub fn language(mut self, language: impl ToString) -> Self {
+        self.language = Some(language.to_string());
+        self
+    }
+
+    /// `url` - the podcast's url
+    pub fn url(mut self, url: impl ToString) -> Self {
+        self.url = Some(url.to_string());
+        self
+    }
+
+    /// `page` - the page of the search,
+    ///       WARNING: if the page is overshot it will still return valid pages
+    pub fn page(mut self, page: u16) -> Self {
+        self.page = Some(page);
+        self
+    }
+
+    pub fn client_builder(mut self, client_builder: ClientBuilder) -> Self {
+        self.client_builder = Some(client_builder);
+        self
+    }
+
+    /// Search for a podcast feed inside fyyd's database,
+    /// matches any - or some set of a given critetia.
+    pub async fn run(self) -> Result<FyydResponse<Vec<FyydPodcast>>, Box<dyn std::error::Error>> {
+        let Self {
+            title,
+            url,
+            term,
+            language,
+            page,
+            client_builder,
+        } = self;
+
+        let client = client_builder.unwrap_or_else(ClientBuilder::new).build()?;
+
+        let path = FYYD_API_V2.to_owned() + SEARCH_PODCAST;
+        let request = client
+            .get(path)
+            .query(&[("title", title.unwrap_or_default())])
+            .query(&[("url", url.unwrap_or_default())])
+            .query(&[("language", language.unwrap_or_default())])
+            .query(&[("term", term.unwrap_or_default())])
+            .query(&[("page", page.as_ref().cloned().unwrap_or_default())]);
+
+        let response = request.send().await?;
+        let body = response.bytes().await?.to_vec();
+        let fyyd_response: FyydResponse<Vec<FyydPodcast>> = serde_json::from_slice(&body)?;
+
+        Ok(fyyd_response)
+    }
 }
 
 /// Client for interacting with the fyyd API.
@@ -50,55 +136,12 @@ impl FyydClient {
     ///
     /// A new instance of `FyydClient`.
     ///
-    /// # Example
-    ///
-    /// ```rust
-    /// use fyyd_api::v2::fyyd_api::FyydClient;
-    /// use reqwest::ClientBuilder;
-    ///
-    /// let client_builder = ClientBuilder::new().timeout(std::time::Duration::from_secs(10));
-    /// let client = FyydClient::new(Some(client_builder));
-    /// ```
     pub fn new(client_builder: Option<ClientBuilder>) -> Self {
-        let client = get_http_client(client_builder).clone();
+        let client = client_builder
+            .unwrap_or_else(ClientBuilder::new)
+            .build()
+            .unwrap();
         FyydClient { client }
-    }
-
-    /// Search for a podcast feed inside fyyd's database,
-    /// matches any - or some set of a given critetia.
-    ///
-    /// Arguments:
-    ///
-    /// - `title` - the podcast's title
-    ///
-    /// - `url` - the podcast's url
-    ///
-    /// - `term` - a search term inside the podcast
-    ///
-    /// - `page` - the page of the search,
-    ///         WARNING: if the page is overshot it will still return valid pages
-    pub async fn search_podcast_feed(
-        &self,
-        title: Option<String>,
-        url: Option<String>,
-        term: Option<String>,
-        page: Option<u16>,
-    ) -> Result<FyydResponse<Vec<FyydPodcast>>, Box<dyn std::error::Error>> {
-        let path = FYYD_API_V2.to_owned() + SEARCH_PODCAST;
-
-        let request = self
-            .client
-            .get(path)
-            .query(&[("title", title.unwrap_or_default().as_str())])
-            .query(&[("url", url.unwrap_or_default().as_str())])
-            .query(&[("term", term.unwrap_or_default().as_str())])
-            .query(&[("page", page.unwrap_or_default())]);
-
-        let response = request.send().await?;
-        let body = response.bytes().await?.to_vec();
-        let fyyd_response: FyydResponse<Vec<FyydPodcast>> = serde_json::from_slice(&body)?;
-
-        Ok(fyyd_response)
     }
 
     /// Retrieves information about a podcast

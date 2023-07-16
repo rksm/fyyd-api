@@ -1,17 +1,18 @@
 //! This is an example demonstrating the usage of the FyydClient from the fyyd-api crate.
 //! It performs a search for podcasts related to the term "rust" and prints their details.
-use fyyd_api::v2::fyyd_api::FyydClient;
+use fyyd_api::v2::fyyd_api::FyydPodcastSearch;
 use reqwest::ClientBuilder;
 
 #[tokio::main]
 async fn main() {
     // Create a new instance of a FyydClient
     let client_builder = ClientBuilder::new().timeout(std::time::Duration::from_secs(10));
-    let client = FyydClient::new(Some(client_builder));
 
     // Perform a search for a podcast feed
-    let search_result = client
-        .search_podcast_feed(Some("rust".to_owned()), None, None, None)
+    let search_result = FyydPodcastSearch::default()
+        .client_builder(client_builder)
+        .term("rust")
+        .run()
         .await;
 
     match search_result {
