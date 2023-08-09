@@ -47,16 +47,17 @@
         rustToolchainDevTOML
         pkgs.just
 
-        pkgs.cargo-deny
         pkgs.cargo-bloat
-        pkgs.cargo-watch
-        pkgs.cargo-flamegraph
+        pkgs.cargo-deny
         pkgs.cargo-diet
+        pkgs.cargo-dist
+        pkgs.cargo-flamegraph
         pkgs.cargo-modules
         pkgs.cargo-nextest
-        pkgs.cargo-dist
+        pkgs.cargo-outdated
         pkgs.cargo-public-api
         pkgs.cargo-unused-features
+        pkgs.cargo-watch
 
         # snapshot testing
         pkgs.cargo-insta
