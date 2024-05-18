@@ -8,8 +8,13 @@ pub enum Error {
     #[error("request error: {0}")]
     Request(#[source] reqwest::Error),
 
-    #[error("deserialization error: {0}")]
-    Deserialization(#[source] serde_json::Error),
+    // #[error("deserialization error={cause} (payload={payload}))")]
+    #[error("deserialization error={cause})")]
+    Deserialization {
+        #[source]
+        cause: serde_json::Error,
+        payload: String,
+    },
 }
 
 pub type Result<T> = std::result::Result<T, Error>;

@@ -84,6 +84,13 @@ pub struct FyydEpisode {
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq)]
+#[serde(untagged)]
+pub enum StringOrU32 {
+    String(String),
+    U32(u32),
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Eq)]
 pub struct FyydPodcast {
     pub title: String,
     pub id: u64,
@@ -120,7 +127,7 @@ pub struct FyydPodcast {
     pub subtitle: String,
     pub tcolor: Option<String>,
     pub color: Option<String>,
-    pub episode_count: Option<String>,
+    pub episode_count: Option<StringOrU32>,
     pub episodes: Option<Vec<FyydEpisode>>,
     pub iflags: Option<String>,
     #[serde(rename = "payment_url")]

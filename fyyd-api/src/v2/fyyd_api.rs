@@ -119,10 +119,13 @@ impl FyydPodcastSearch {
 
         let response = request.send().await.map_err(Error::Request)?;
         let body = response.bytes().await.map_err(Error::Request)?.to_vec();
-        let fyyd_response: FyydResponse<Vec<FyydPodcast>> =
-            serde_json::from_slice(&body).map_err(Error::Deserialization)?;
-
-        Ok(fyyd_response)
+        match serde_json::from_slice(&body) {
+            Err(err) => Err(Error::Deserialization {
+                cause: err,
+                payload: String::from_utf8_lossy(&body).to_string(),
+            }),
+            Ok(response) => Ok(response),
+        }
     }
 }
 
@@ -186,10 +189,13 @@ impl FyydClient {
 
         let response = request.send().await.map_err(Error::Request)?;
         let body = response.bytes().await.map_err(Error::Request)?.to_vec();
-        let fyyd_response: FyydResponse<FyydPodcast> =
-            serde_json::from_slice(&body).map_err(Error::Deserialization)?;
-
-        Ok(fyyd_response)
+        match serde_json::from_slice(&body) {
+            Err(err) => Err(Error::Deserialization {
+                cause: err,
+                payload: String::from_utf8_lossy(&body).to_string(),
+            }),
+            Ok(response) => Ok(response),
+        }
     }
 
     /// Retrieves information about the last added podcasts
@@ -213,9 +219,12 @@ impl FyydClient {
 
         let response = request.send().await.map_err(Error::Request)?;
         let body = response.bytes().await.map_err(Error::Request)?.to_vec();
-        let fyyd_response: FyydResponse<FyydPodcast> =
-            serde_json::from_slice(&body).map_err(Error::Deserialization)?;
-
-        Ok(fyyd_response)
+        match serde_json::from_slice(&body) {
+            Err(err) => Err(Error::Deserialization {
+                cause: err,
+                payload: String::from_utf8_lossy(&body).to_string(),
+            }),
+            Ok(response) => Ok(response),
+        }
     }
 }
