@@ -130,7 +130,7 @@ pub struct FyydPodcast {
     pub episode_count: Option<StringOrU32>,
     pub episodes: Option<Vec<FyydEpisode>>,
     pub iflags: Option<String>,
-    #[serde(rename = "payment_url")]
+    #[serde(rename = "paymentURL")]
     pub payment_url: Option<String>,
     pub author: Option<String>,
 }
