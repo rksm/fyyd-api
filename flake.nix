@@ -67,6 +67,8 @@
         pkgs.reuse
         pkgs.lychee
 
+        pkgs.rust-analyzer
+
         (pkgs.symlinkJoin {
           name = "cargo-udeps-wrapped";
           paths = [pkgs.cargo-udeps];
