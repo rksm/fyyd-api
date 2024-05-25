@@ -99,7 +99,7 @@ pub struct FyydPodcast {
     #[serde(rename = "xmlURL")]
     pub xml_url: String,
     #[serde(rename = "htmlURL")]
-    pub html_url: String,
+    pub html_url: Option<String>,
     #[serde(rename = "imgURL")]
     pub img_url: String,
     pub status: u16,
